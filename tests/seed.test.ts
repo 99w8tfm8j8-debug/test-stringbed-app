@@ -40,3 +40,11 @@ describe('seed library', () => {
     expect(estimateMainLengthMm(98)).toBe(317);
   });
 });
+
+import { parseGauges } from '../src/lib/gauges';
+describe('custom gauge parsing', () => {
+  it('reads labelled and mm-only gauges and drops nonsense', () => {
+    expect(parseGauges('16L=1.25, 17: 1.20')).toEqual([{ label: '16L', mm: 1.25 }, { label: '17', mm: 1.2 }]);
+    expect(parseGauges('1.30; 5; abc')).toEqual([{ label: '1.30', mm: 1.3 }]);
+  });
+});

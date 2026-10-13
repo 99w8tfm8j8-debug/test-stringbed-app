@@ -7,19 +7,10 @@ import { SEED_RACQUETS, estimateMainLengthMm } from '../data/racquets';
 import { MATERIAL_CLASSES, MATERIAL_DENSITY, type MaterialClass } from '../lib/physics';
 import type { Feel, Racquet, StringModel } from '../lib/types';
 import { num } from '../app/format';
+import { parseGauges } from '../lib/gauges';
 
 const seedStringIds = new Set(SEED_STRINGS.map((s) => s.id));
 const seedRacquetIds = new Set(SEED_RACQUETS.map((r) => r.id));
-
-/** Parse "16L=1.25, 17=1.20" or "1.25, 1.30". */
-export function parseGauges(text: string): StringModel['gauges'] {
-  return text.split(/[,;\n]+/).map((p) => p.trim()).filter(Boolean).flatMap((p) => {
-    const m = p.match(/^(.+?)\s*[=:]\s*([\d.,]+)$/);
-    const label = m ? m[1]!.trim() : p;
-    const mm = num(m ? m[2]! : p);
-    return mm && mm > 0.8 && mm < 2 ? [{ label: m ? label : mm.toFixed(2), mm }] : [];
-  });
-}
 
 function StringForm({ initial, onSave, onCancel }: { initial?: StringModel; onSave: (s: StringModel) => void; onCancel: () => void }) {
   const [brand, setBrand] = useState(initial?.brand ?? '');
