@@ -1,7 +1,6 @@
 // Microphone capture: raw Float32 samples via AudioWorklet, with a
 // ScriptProcessorNode fallback for browsers without AudioWorklet.
 // Must be started from a user gesture (iOS Safari requirement).
-import workletUrl from './recorder.worklet.js?url';
 
 export type CaptureError = 'unsupported' | 'denied' | 'no-device' | 'insecure' | 'failed';
 
@@ -66,7 +65,8 @@ export async function startCapture(onSamples: (chunk: Float32Array) => void): Pr
   let path: Capture['path'];
   if (ctx.audioWorklet && typeof AudioWorkletNode !== 'undefined') {
     try {
-      await ctx.audioWorklet.addModule(workletUrl);
+      // Served from public/ as a plain file; worklet modules are loaded by URL.
+      await ctx.audioWorklet.addModule(new URL('recorder-worklet.js', document.baseURI).href);
       const w = new AudioWorkletNode(ctx, 'stringbed-recorder', { numberOfInputs: 1, numberOfOutputs: 1, channelCount: 1, channelCountMode: 'explicit' });
       w.port.onmessage = (ev: MessageEvent<Float32Array>) => onSamples(ev.data);
       node = w;

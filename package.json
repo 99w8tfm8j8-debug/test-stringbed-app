@@ -6,9 +6,9 @@
   "description": "Phone-first PWA that estimates tennis string tension from sound, logs readings per racquet and says when to restring.",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "build": "npm run typecheck && vite build",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.node.json",
     "test": "vitest run",
     "test:watch": "vitest"
   },
@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@preact/preset-vite": "2.10.6",
+    "@types/node": "22.20.5",
     "fake-indexeddb": "6.2.5",
     "typescript": "5.9.3",
     "vite": "6.4.4",
