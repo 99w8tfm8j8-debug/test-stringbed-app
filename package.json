@@ -1,0 +1,25 @@
+{
+  "name": "stringbed",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Phone-first PWA that estimates tennis string tension from sound, logs readings per racquet and says when to restring.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "preact": "10.29.8"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "2.10.6",
+    "fake-indexeddb": "6.2.5",
+    "typescript": "5.9.3",
+    "vite": "6.4.4",
+    "vitest": "3.2.7"
+  }
+}
