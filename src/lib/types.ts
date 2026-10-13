@@ -97,6 +97,10 @@ export interface Setup {
   capHours?: number;
   hours: HoursEntry[];
   calib: Partial<Record<Side, Calibration>>;
+  /** Physics correction factors carried over from a previous setup with the same racquet and string. */
+  carriedFactor?: Partial<Record<Side, number>>;
+  /** Id of the setup this one replaced (restring history). */
+  previousId?: string;
   notes?: string;
   createdAt: number;
   updatedAt: number;
